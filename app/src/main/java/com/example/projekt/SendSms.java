@@ -1,4 +1,4 @@
-package com.example.projekt.MessageSystem;
+package com.example.projekt;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -24,7 +24,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.projekt.DatabaseManagement.ItemReader;
-import com.example.projekt.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SendSms extends AppCompatActivity {
