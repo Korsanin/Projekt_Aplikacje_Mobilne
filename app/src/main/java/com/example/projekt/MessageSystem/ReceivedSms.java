@@ -1,8 +1,7 @@
-package com.example.projekt;
+package com.example.projekt.MessageSystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SentSms extends AppCompatActivity {
+public class ReceivedSms extends AppCompatActivity {
     private ItemReader.ItemReaderDbHelper dbHelper;
     private ListView listView;
     private List phone_numbers;
@@ -22,18 +21,17 @@ public class SentSms extends AppCompatActivity {
     private List elementList;
     private HashMap<String,Object> hashMap;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sent_sms);
+        setContentView(R.layout.activity_received_sms);
 
         dbHelper = new ItemReader.ItemReaderDbHelper(getApplicationContext());
 
-        listView = findViewById(R.id.sentSms);
+        listView = findViewById(R.id.receivedSms);
 
-        phone_numbers = dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_SMS,ItemReader.ItemEntry.COLUMN_NAME_SMS_PHONE_NUMBER,"'SENT'",ItemReader.ItemEntry.COLUMN_NAME_SMS_TYPE);
-        messages  = dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_SMS,ItemReader.ItemEntry.COLUMN_NAME_SMS_MESSAGE,"'SENT'", ItemReader.ItemEntry.COLUMN_NAME_SMS_TYPE);
+        phone_numbers = dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_SMS,ItemReader.ItemEntry.COLUMN_NAME_SMS_PHONE_NUMBER,"'RECEIVED'",ItemReader.ItemEntry.COLUMN_NAME_SMS_TYPE);
+        messages  = dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_SMS,ItemReader.ItemEntry.COLUMN_NAME_SMS_MESSAGE,"'RECEIVED'", ItemReader.ItemEntry.COLUMN_NAME_SMS_TYPE);
 
         elementList = new ArrayList();
 

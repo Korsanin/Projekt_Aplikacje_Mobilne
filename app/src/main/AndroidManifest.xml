@@ -18,23 +18,23 @@
         android:theme="@style/Theme.Projekt"
         tools:targetApi="31">
         <activity
-            android:name=".ReceivedSms"
+            android:name=".MessageSystem.ReceivedSms"
             android:exported="false"
-            android:parentActivityName=".SendSms">
+            android:parentActivityName=".MessageSystem.SendSms">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SentSms"
+            android:name=".MessageSystem.SentSms"
             android:exported="true"
-            android:parentActivityName=".SendSms">
+            android:parentActivityName=".MessageSystem.SendSms">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SendSms"
+            android:name=".MessageSystem.SendSms"
             android:exported="false"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -42,7 +42,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SendEmail"
+            android:name=".MessageSystem.SendEmail"
             android:exported="false"
             android:parentActivityName=".MainActivity">
             <meta-data

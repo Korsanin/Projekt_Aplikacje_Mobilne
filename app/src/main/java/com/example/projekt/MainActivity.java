@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.projekt.DatabaseManagement.Checker;
 import com.example.projekt.DatabaseManagement.ItemReader;
+import com.example.projekt.MessageSystem.SendEmail;
+import com.example.projekt.MessageSystem.SendSms;
 import com.example.projekt.ShortcutManager.MyShortcutManager;
 
 import java.util.ArrayList;

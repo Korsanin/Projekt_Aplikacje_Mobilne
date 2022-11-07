@@ -7,8 +7,8 @@ import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
 
 import com.example.projekt.R;
-import com.example.projekt.ReceivedSms;
-import com.example.projekt.SentSms;
+import com.example.projekt.MessageSystem.ReceivedSms;
+import com.example.projekt.MessageSystem.SentSms;
 
 import java.util.ArrayList;
 import java.util.List;
