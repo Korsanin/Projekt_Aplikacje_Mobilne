@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MessageSystem.SendEmail">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="E-mail"
+            android:textAlignment="center"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/gray"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailSubjectInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailInputLayout"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailSubjectInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_text_subject"
+            android:textColor="@color/gray"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailBodyInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailSubjectInputLayout"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailBodyInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_text_message"
+            android:textColor="@color/gray"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/sendEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/input_send"
+        android:backgroundTint="@color/teal_700"
+        android:textColor="@color/light_gray"
+        android:layout_below="@id/emailBodyInputLayout"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

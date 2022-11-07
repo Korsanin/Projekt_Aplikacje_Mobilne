@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/menu_order" android:id="@+id/orderMenuItem"></item>
+    <item android:title="@string/menu_sms" android:id="@+id/smsMenuItem"></item>
+    <item android:title="@string/menu_share" android:id="@+id/shareMenuItem"></item>
+    <item android:title="@string/menu_save_settings" android:id="@+id/saveSettingsMenuItem"></item>
+    <item android:title="@string/menu_about" android:id="@+id/aboutMenuItem"></item>
+</menu>

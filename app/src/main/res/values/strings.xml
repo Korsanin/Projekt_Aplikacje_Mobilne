@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Projekt</string>
+    <string name="menu_order">Lista zamówień</string>
+    <string name="menu_sms">Wyślij SMS</string>
+    <string name="menu_share">Udostępnij</string>
+    <string name="menu_save_settings">Zapisz ustawienia</string>
+    <string name="menu_about">O programie</string>
+    <string name="shortcut_sms_short_label">SMS</string>
+    <string name="shortcut_sms_long_label">Wyślij SMS</string>
+    <string name="shortcut_sms_disabled_label">Usługa wysyłania SMSów nie jest obecnie dostępna</string>
+    <string name="shortcut_email_short_label">E-Mail</string>
+    <string name="shortcut_email_long_label">Wyślij E-Mail</string>
+    <string name="shortcut_email_disabled_label">Usługa wysyłania E-Maili nie jest obecnie dostępna</string>
+    <string name="shortcut_sms_sent_short_label">Wysłane SMSy</string>
+    <string name="shortcut_sms_sent_long_label">Zobacz wysłane SMSy 👀</string>
+    <string name="shortcut_sms_sent_disabled_label">Usługa sprawdzania wysłanych SMSów nie jest obecnie dostępna</string>
+    <string name="shortcut_sms_received_short_label">Otrzymane SMSy</string>
+    <string name="shortcut_sms_received_long_label">Zobacz otrzymane SMSy 👀</string>
+    <string name="shortcut_sms_received_disabled_label">Usługa sprawdzania odebranych SMSów nie jest obecnie dostępna</string>
+    <string name="input_name_and_surname">Imię i Nazwisko</string>
+    <string name="input_phone_number">Numer Telefonu</string>
+    <string name="input_text_message">Wiadomość</string>
+    <string name="input_text_subject">Temat</string>
+    <string name="input_send">Wyślij</string>
+    <string name="sms_received">Otrzymane SMSy</string>
+    <string name="sms_sent">Wysłane SMSy</string>
+    <string name="input_add_to_cart">Dodaj do koszyka</string>
+    <string name="about">Aplikacja została stworzona przez: xyz</string>
+</resources>
