@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/input_text_subject"
             android:textColor="@color/gray"
+            android:inputType="text"
             />
     </com.google.android.material.textfield.TextInputLayout>
 

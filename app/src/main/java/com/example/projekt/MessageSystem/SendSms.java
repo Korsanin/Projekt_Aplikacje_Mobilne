@@ -29,6 +29,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class SendSms extends AppCompatActivity {
     private final String TAG = "SMS";
+    private final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
+    private final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 2;
     private SmsManager smsManager;
     private String destinationAddress = "";
     private String scAddress = null;

@@ -5,6 +5,7 @@
     <string name="menu_share">Udostępnij</string>
     <string name="menu_save_settings">Zapisz ustawienia</string>
     <string name="menu_about">O programie</string>
+    <string name="menu_shop_location">Zlokalizuj sklep</string>
     <string name="shortcut_sms_short_label">SMS</string>
     <string name="shortcut_sms_long_label">Wyślij SMS</string>
     <string name="shortcut_sms_disabled_label">Usługa wysyłania SMSów nie jest obecnie dostępna</string>
@@ -25,5 +26,7 @@
     <string name="sms_received">Otrzymane SMSy</string>
     <string name="sms_sent">Wysłane SMSy</string>
     <string name="input_add_to_cart">Dodaj do koszyka</string>
+    <string name="shop_location">Zlokalizuj sklep</string>
     <string name="about">Aplikacja została stworzona przez: xyz</string>
+
 </resources>

@@ -136,6 +136,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.saveSettingsMenuItem:
                 Toast.makeText(this, R.string.menu_save_settings, Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.gpsMenuItem:
+                Toast.makeText(this, R.string.shop_location, Toast.LENGTH_SHORT).show();
+                Intent gps = new Intent(getApplicationContext(), GPS.class);
+                startActivity(gps);
+                break;
             case R.id.aboutMenuItem:
                 Toast.makeText(this, R.string.about, Toast.LENGTH_SHORT).show();
                 break;

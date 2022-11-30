@@ -65,7 +65,7 @@
             android:hint="@string/input_name_and_surname"
             android:textAlignment="center"
             android:textColor="@color/gray"
-            />
+            android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <RelativeLayout
@@ -96,14 +96,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mouses"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="125dp"
         android:layout_below="@id/ilosc"
         android:layout_marginTop="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/keyboards"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="125dp"
         android:layout_below="@id/mouses"
         android:layout_marginTop="10dp" />
 
@@ -115,6 +115,7 @@
         android:backgroundTint="@color/teal_700"
         android:textColor="@color/light_gray"
         android:layout_below="@id/keyboards"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"/>
 
 

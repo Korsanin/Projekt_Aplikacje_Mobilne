@@ -40,7 +40,7 @@
         android:padding="5dp"/>
 
     <CheckBox
-        android:id="@+id/checkboxRecyclerView"
+        android:id="@+id/checkBoxRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_below="@id/priceRecyclerItem"

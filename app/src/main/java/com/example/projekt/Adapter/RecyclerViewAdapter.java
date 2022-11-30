@@ -21,6 +21,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<String>  titles;
     private List<Integer>  prices;
     private List<Integer>  ids;
+    private CheckBox lastSelected;
+
 
     public RecyclerViewAdapter(Context context, List<Integer> imgs, List<String> titles, List<Integer> prices, List<Integer> ids) {
         this.context = context;
@@ -44,6 +46,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.title.setText(titles.get(position));
         holder.price.setText(prices.get(position)+"zł");
         holder.checkBox.setText(ids.get(position)+"");
+
+        if(position==0){
+            lastSelected=null;
+        }
+
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(holder.checkBox.isChecked()){
+                    if(lastSelected!=null){
+                        lastSelected.setChecked(false);
+                        lastSelected=holder.checkBox;
+                    }
+                    else{
+                        lastSelected=holder.checkBox;
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -61,7 +82,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             imageView = itemView.findViewById(R.id.imageViewRecyclerItem);
             title = itemView.findViewById(R.id.titleRecyclerItem);
             price = itemView.findViewById(R.id.priceRecyclerItem);
-            checkBox = itemView.findViewById(R.id.checkboxRecyclerView);
+            checkBox = itemView.findViewById(R.id.checkBoxRecyclerView);
         }
     }
 }
