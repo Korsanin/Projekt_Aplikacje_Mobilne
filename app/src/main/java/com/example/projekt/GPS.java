@@ -3,12 +3,12 @@ package com.example.projekt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
@@ -19,6 +19,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,11 +44,13 @@ public class GPS extends AppCompatActivity implements  LocationListener {
     private Location location;
     private String bp;
     private int amount;
+    private Button button;
+    private Resources resources;
 
     private MapView osm;
     private MapController mapController;
 
-    private RelativeLayout swipeRefreshLayout;
+    private RelativeLayout relativeLayout;
     private TextView textNetwork;
     private TextView textGPS;
 
@@ -58,44 +61,43 @@ public class GPS extends AppCompatActivity implements  LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps);
 
+        resources = getResources();
 
-        criteria = new Criteria();
+        checkGPSPermission();
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        bp = locationManager.getBestProvider(criteria,true);
-
-        if(ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_ACCESS_FINE_LOCATION);
-            requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSION_ACCESS_COARSE_LOCATION);
-
-            return;
-        }
-
-        location = locationManager.getLastKnownLocation(bp);
 
         bestProvider = findViewById(R.id.bestProvider);
         longitude = findViewById(R.id.longitude);
         latitude = findViewById(R.id.latitude);
         archivalData = findViewById(R.id.archivalData);
 
-
-        locationManager.requestLocationUpdates(
-                ""+bp,
-                500,
-                0.5f,
-                (LocationListener) this
-        );
-
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        relativeLayout = findViewById(R.id.relativeLayout);
         textNetwork = findViewById(R.id.textNetwork);
         textGPS = findViewById(R.id.textGPS);
 
-        bestProvider.setText("Best provider: " + bp);
-//        longitude.setText("Longitude: "+ location.getLongitude());
-//        latitude.setText("Latitude: "+ location.getLatitude());
-        archivalData.setText("Measurement readings:\n\n");
-//        Log.d(TAG,bp + " " + location.getLongitude() + " " + location.getLatitude());
+        archivalData.setText(resources.getString(R.string.gps_measurements)+"\n\n");
+        isNetworkAvailable();
+
+        if(isGPSAvailable()){
+            criteria = new Criteria();
+            bp = locationManager.getBestProvider(criteria,true);
+
+            locationManager.requestLocationUpdates(
+                    ""+bp,
+                    500,
+                    0.5f,
+                    (LocationListener) this
+            );
+            bestProvider.setText(resources.getString(R.string.gps_best_provider) + bp);
+            location = locationManager.getLastKnownLocation(bp);
+        }
+
+        button = findViewById(R.id.refresh);
+        button.setOnClickListener(v ->{
+            finish();
+            startActivity(getIntent());
+        });
 
         osm = findViewById(R.id.osm);
         Context context = getApplicationContext();
@@ -108,16 +110,54 @@ public class GPS extends AppCompatActivity implements  LocationListener {
         mapController = (MapController) osm.getController();
         mapController.setZoom(12);
 
-
-
-
     }
 
     public boolean isNetworkAvailable(){
         ConnectivityManager connectivityManager=(ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
         Log.v(TAG,networkInfo+"");
+
+        if(networkInfo!=null){
+            textNetwork.setText("Internet: "+resources.getString(R.string.on));
+            textNetwork.setTextColor(Color.GREEN);
+        }
+        else {
+            textNetwork.setText("Internet: "+resources.getString(R.string.off));
+            textNetwork.setTextColor(Color.RED);
+        }
+
         return networkInfo !=null;
+    }
+
+//    @Override
+//    public void onProviderEnabled(@NonNull String provider) {
+//        isGPSAvailable();
+//        finish();
+//        startActivity(getIntent());
+//        LocationListener.super.onProviderEnabled(provider);
+//    }
+//
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+        finish();
+        startActivity(getIntent());
+        LocationListener.super.onProviderDisabled(provider);
+    }
+
+
+
+    public boolean isGPSAvailable(){
+        boolean gpsStatus = locationManager.isLocationEnabled();
+        if(gpsStatus){
+            textGPS.setText("GPS: "+resources.getString(R.string.on));
+            textGPS.setTextColor(Color.GREEN);
+        }
+        else {
+            textGPS.setText("GPS: "+resources.getString(R.string.off));
+            textGPS.setTextColor(Color.RED);
+        }
+
+        return gpsStatus;
     }
 
     @Override
@@ -141,26 +181,19 @@ public class GPS extends AppCompatActivity implements  LocationListener {
         }
     }
 
-
     @Override
     public void onLocationChanged(@NonNull Location location) {
         bp = locationManager.getBestProvider(criteria,true);
         if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_DENIED){
 
-            boolean connection = isNetworkAvailable();
-            if(connection){
-                textNetwork.setText("internet connect");
-                textNetwork.setTextColor(Color.GREEN);
-            }
-            else {
-                textNetwork.setText("no internet");
-                textNetwork.setTextColor(Color.RED);
-            }
+            isNetworkAvailable();
+            isGPSAvailable();
+
 
             location = locationManager.getLastKnownLocation(bp);
-            bestProvider.setText("Best provider: " + bp);
-            longitude.setText("Longitude: "+ location.getLongitude());
-            latitude.setText("Latitude: "+ location.getLatitude());
+            bestProvider.setText(resources.getString(R.string.gps_best_provider) + " " + bp);
+            longitude.setText(resources.getString(R.string.gps_longitude)+" "+ location.getLongitude());
+            latitude.setText(resources.getString(R.string.gps_latitude)+" "+ location.getLatitude());
             archivalData.setText(archivalData.getText()+" "+location.getLongitude()+" : "+location.getLatitude()+"\n");
             amount++;
 
@@ -193,5 +226,16 @@ public class GPS extends AppCompatActivity implements  LocationListener {
         osm.getOverlays().add(marker);
         osm.getOverlays().add(shop_marker);
         osm.invalidate();
+    }
+
+    public void checkGPSPermission(){
+        if(ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_ACCESS_FINE_LOCATION);
+            requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSION_ACCESS_COARSE_LOCATION);
+
+            return;
+        }
     }
 }

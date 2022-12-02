@@ -28,5 +28,12 @@
     <string name="input_add_to_cart">Dodaj do koszyka</string>
     <string name="shop_location">Zlokalizuj sklep</string>
     <string name="about">Aplikacja została stworzona przez: xyz</string>
+    <string name="refresh">Odśwież</string>
+    <string name="gps_best_provider">Najlepszy dostawca: </string>
+    <string name="gps_measurements">Odczyty: </string>
+    <string name="gps_longitude">Długość geograficzna: </string>
+    <string name="gps_latitude">Szerokość geograficzna: </string>
+    <string name="on">włączony </string>
+    <string name="off">wyłączony </string>
 
 </resources>
