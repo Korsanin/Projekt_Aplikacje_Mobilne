@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GPS"
+    android:id="@+id/swipeRefreshLayout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:id="@+id/bestProvider"
+            android:text="bestProvider"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:id="@+id/longitude"
+            android:text="longitude"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:id="@+id/latitude"
+            android:text="latitude"/>
+
+        <org.osmdroid.views.MapView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:id="@+id/osm"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textNetwork"
+            android:text="textNetwork"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textGPS"
+            android:text="textGPS"
+            />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/archivalData"
+                android:text="archivalData"/>
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>
