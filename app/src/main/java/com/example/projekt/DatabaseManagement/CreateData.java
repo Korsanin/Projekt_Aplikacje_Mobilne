@@ -82,5 +82,6 @@ public class CreateData {
         long newRowIdUserAccount = db_write.insert(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,null,user_account_values);
 
         Log.v(CREATE_DATA_TAG,newRowIdUserAccount + " \n " + dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_USERNAME,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID) + " \n " + dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_EMAIL,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID) + " \n "+dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_PASSWORD,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID)+ " \n "+dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_PHONE_NUMBER,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID));
+
     }
 }

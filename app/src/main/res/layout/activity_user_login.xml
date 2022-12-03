@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserAccount.UserLogin">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userEmailInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userEmailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/gray"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userPasswordInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userEmailInputLayout"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userPasswordInput"
+            android:layout_width="match_parent"
+            android:textColor="@color/gray"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/input_password"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/userPasswordInputLayout"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_login"
+            android:backgroundTint="@color/teal_700"
+            android:textColor="@color/light_gray" />
+
+        <CheckBox
+            android:id="@+id/rememberMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:text="@string/input_remember_me"
+            android:layout_toRightOf="@id/buttonLogin"/>
+    </LinearLayout>
+
+</RelativeLayout>

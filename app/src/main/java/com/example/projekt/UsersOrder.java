@@ -1,19 +1,29 @@
 package com.example.projekt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projekt.Adapter.RecyclerViewAdapter;
 import com.example.projekt.DatabaseManagement.ItemReader;
+import com.example.projekt.UserAccount.UserLogin;
+import com.example.projekt.UserAccount.UserRegister;
 
 import java.util.List;
 
@@ -48,20 +58,23 @@ public class UsersOrder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_order);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("USERDATA", Context.MODE_PRIVATE);
+
         imageViewOrder = findViewById(R.id.imageViewOrder);
         textViewTitleOrder = findViewById(R.id.titleOrder);
         textViewPriceOrder = findViewById(R.id.priceOrder);
 
-        Intent intent = getIntent();
+        SharedPreferences computer_set = getSharedPreferences("COMPUTER_SET", Context.MODE_PRIVATE);
 
-        bundle = intent.getExtras();
-
-        imageViewOrder.setImageResource(Integer.valueOf(bundle.get("image").toString()));
-        textViewTitleOrder.setText(bundle.get("title").toString());
-        textViewPriceOrder.setText(bundle.get("price").toString()+"zł");
+        imageViewOrder.setImageResource(Integer.valueOf(computer_set.getString("IMAGE","")));
+        textViewTitleOrder.setText(computer_set.getString("TITLE","").toString());
+        textViewPriceOrder.setText(computer_set.getInt("PRICE",0)+"zł");
 
 
-        textInputEditText = findViewById(R.id.userNameAndSurname);
+        textInputEditText = findViewById(R.id.username);
+
+        Log.v("Test",sharedPreferences.getString("USERNAME",""));
+
         seekBar = findViewById(R.id.seekBar);
         textViewAmount = findViewById(R.id.textViewIlosc);
 
@@ -123,5 +136,61 @@ public class UsersOrder extends AppCompatActivity {
 
         keyboards.setAdapter(keyboardsRecyclerViewAdapter);
         keyboards.setLayoutManager(keyboardsLinearLayoutManager);
+
+        if(sharedPreferences.getString("USERNAME","")!=null && sharedPreferences.getString("USERNAME","")!=""){
+            textInputEditText.setText(sharedPreferences.getString("USERNAME",""));
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        SharedPreferences sharedPreferences = getSharedPreferences("USERDATA", Context.MODE_PRIVATE);
+        if(sharedPreferences.getString("USERNAME","")==null || sharedPreferences.getString("USERNAME","")==""){
+            menuInflater.inflate(R.menu.menu_login,menu);
+        } else{
+            menuInflater.inflate(R.menu.menu_logout,menu);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        SharedPreferences sharedPreferences = getSharedPreferences("USERDATA", Context.MODE_PRIVATE);
+        if(sharedPreferences.getString("USERNAME","")=="" || sharedPreferences.getString("USERNAME","")==null) {
+            switch (item.getItemId()) {
+                case R.id.menu_login:
+                    Toast.makeText(this, R.string.menu_login, Toast.LENGTH_SHORT).show();
+                    Intent login = new Intent(getApplicationContext(), UserLogin.class);
+                    startActivity(login);
+                    break;
+                case R.id.menu_register:
+                    Toast.makeText(this, R.string.menu_register, Toast.LENGTH_SHORT).show();
+                    Intent register = new Intent(getApplicationContext(), UserRegister.class);
+                    startActivity(register);
+                    break;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
+        } else{
+            switch (item.getItemId()) {
+                case R.id.menu_logout:
+                    Toast.makeText(this, R.string.menu_logout, Toast.LENGTH_SHORT).show();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    finish();
+                    startActivity(getIntent());
+                    break;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

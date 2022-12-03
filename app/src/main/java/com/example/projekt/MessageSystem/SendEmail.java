@@ -48,4 +48,5 @@ public class SendEmail extends AppCompatActivity {
         intent.setType("message/rfc822");
         startActivity(Intent.createChooser(intent, "Wybierz metodę wysyłania: "));
     }
+
 }
