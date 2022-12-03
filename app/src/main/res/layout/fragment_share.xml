@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MessageSystem.SendEmail">
+    tools:context=".MainActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailInputLayout"
@@ -13,7 +13,8 @@
         android:textColorHint="@color/teal_700"
         app:hintTextColor="@color/teal_700"
         app:boxBackgroundColor="@color/light_gray"
-        app:boxStrokeColor="@color/teal_700">
+        app:boxStrokeColor="@color/teal_700"
+        android:layout_margin="5dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailInput"
@@ -34,7 +35,8 @@
         android:textColorHint="@color/teal_700"
         app:hintTextColor="@color/teal_700"
         app:boxBackgroundColor="@color/light_gray"
-        app:boxStrokeColor="@color/teal_700">
+        app:boxStrokeColor="@color/teal_700"
+        android:layout_margin="5dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailSubjectInput"
@@ -54,7 +56,8 @@
         android:textColorHint="@color/teal_700"
         app:hintTextColor="@color/teal_700"
         app:boxBackgroundColor="@color/light_gray"
-        app:boxStrokeColor="@color/teal_700">
+        app:boxStrokeColor="@color/teal_700"
+        android:layout_margin="5dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailBodyInput"

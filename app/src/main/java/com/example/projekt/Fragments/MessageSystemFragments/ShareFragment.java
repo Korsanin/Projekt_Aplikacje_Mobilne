@@ -1,16 +1,24 @@
-package com.example.projekt.MessageSystem;
+package com.example.projekt.Fragments.MessageSystemFragments;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.example.projekt.DatabaseManagement.ItemReader;
 import com.example.projekt.R;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class SendEmail extends AppCompatActivity {
+public class ShareFragment extends Fragment {
+    private ItemReader.ItemReaderDbHelper dbHelper;
+    private View rootView;
+
     private String email;
     private String subject;
     private String body;
@@ -19,17 +27,18 @@ public class SendEmail extends AppCompatActivity {
     private TextInputEditText bodyInput;
     private Button button;
 
-    @SuppressLint("MissingInflatedId")
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_send_email);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        dbHelper = new ItemReader.ItemReaderDbHelper(getContext());
 
-        emailInput = findViewById(R.id.emailInput);
-        subjectInput = findViewById(R.id.emailSubjectInput);
-        bodyInput = findViewById(R.id.emailBodyInput);
+        rootView = inflater.inflate(R.layout.fragment_share,container,false);
 
-        button = findViewById(R.id.sendEmail);
+        emailInput = rootView.findViewById(R.id.emailInput);
+        subjectInput = rootView.findViewById(R.id.emailSubjectInput);
+        bodyInput = rootView.findViewById(R.id.emailBodyInput);
+
+        button = rootView.findViewById(R.id.sendEmail);
 
         button.setOnClickListener(v ->{
             email = String.valueOf(emailInput.getText());
@@ -38,6 +47,8 @@ public class SendEmail extends AppCompatActivity {
 
             sendEmail(email,subject,body);
         });
+
+        return rootView;
     }
 
     public void sendEmail(String email, String subject, String body){
@@ -48,5 +59,4 @@ public class SendEmail extends AppCompatActivity {
         intent.setType("message/rfc822");
         startActivity(Intent.createChooser(intent, "Wybierz metodę wysyłania: "));
     }
-
 }
