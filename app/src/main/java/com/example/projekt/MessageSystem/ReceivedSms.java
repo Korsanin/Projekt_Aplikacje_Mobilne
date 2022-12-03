@@ -56,4 +56,6 @@ public class ReceivedSms extends AppCompatActivity {
         );
         listView.setAdapter(simpleAdapter);
     }
+
+
 }

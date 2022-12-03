@@ -21,6 +21,20 @@
         android:theme="@style/Theme.Projekt"
         tools:targetApi="31">
         <activity
+            android:name=".UserAccount.UserRegister"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".UserAccount.UserLogin"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".GPS"
             android:exported="true"
             android:parentActivityName=".MainActivity">

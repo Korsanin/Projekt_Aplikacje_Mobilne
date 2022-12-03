@@ -58,4 +58,6 @@ public class SentSms extends AppCompatActivity {
         );
         listView.setAdapter(simpleAdapter);
     }
+
+
 }

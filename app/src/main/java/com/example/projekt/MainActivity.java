@@ -3,7 +3,9 @@ package com.example.projekt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.util.Log;
@@ -98,11 +100,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.v("TAG","------------"+titles.get(i)+"\n"+images.get(i)+"\n"+prices.get(i));
+                SharedPreferences computer_set = getSharedPreferences("COMPUTER_SET", Context.MODE_PRIVATE);
+                SharedPreferences.Editor computer_set_editor = computer_set.edit();
                 Intent intent = new Intent(getApplicationContext(),UsersOrder.class);
-                intent.putExtra("id",ids.get(i).toString());
-                intent.putExtra("title",titles.get(i).toString());
-                intent.putExtra("image",images.get(i).toString());
-                intent.putExtra("price",Integer.valueOf(prices.get(i).toString()));
+                computer_set_editor.putString("ID",ids.get(i).toString());
+                computer_set_editor.putString("TITLE",titles.get(i).toString());
+                computer_set_editor.putString("IMAGE",images.get(i).toString());
+                computer_set_editor.putInt("PRICE",Integer.valueOf(prices.get(i).toString()));
+                computer_set_editor.apply();
                 startActivity(intent);
             }
         });
@@ -132,9 +137,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, R.string.menu_share, Toast.LENGTH_SHORT).show();
                 Intent email = new Intent(getApplicationContext(), SendEmail.class);
                 startActivity(email);
-                break;
-            case R.id.saveSettingsMenuItem:
-                Toast.makeText(this, R.string.menu_save_settings, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.gpsMenuItem:
                 Toast.makeText(this, R.string.shop_location, Toast.LENGTH_SHORT).show();

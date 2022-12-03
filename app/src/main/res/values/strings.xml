@@ -3,7 +3,6 @@
     <string name="menu_order">Lista zamówień</string>
     <string name="menu_sms">Wyślij SMS</string>
     <string name="menu_share">Udostępnij</string>
-    <string name="menu_save_settings">Zapisz ustawienia</string>
     <string name="menu_about">O programie</string>
     <string name="menu_shop_location">Zlokalizuj sklep</string>
     <string name="shortcut_sms_short_label">SMS</string>
@@ -22,7 +21,9 @@
     <string name="input_phone_number">Numer Telefonu</string>
     <string name="input_text_message">Wiadomość</string>
     <string name="input_text_subject">Temat</string>
+    <string name="input_remember_me">Zapamiętaj dane logowania</string>
     <string name="input_send">Wyślij</string>
+    <string name="input_password">Hasło</string>
     <string name="sms_received">Otrzymane SMSy</string>
     <string name="sms_sent">Wysłane SMSy</string>
     <string name="input_add_to_cart">Dodaj do koszyka</string>
@@ -35,5 +36,9 @@
     <string name="gps_latitude">Szerokość geograficzna: </string>
     <string name="on">włączony </string>
     <string name="off">wyłączony </string>
+    <string name="menu_login">Zaloguj się</string>
+    <string name="menu_logout">Wyloguj się</string>
+    <string name="menu_register">Zarejetruj się</string>
+
 
 </resources>
