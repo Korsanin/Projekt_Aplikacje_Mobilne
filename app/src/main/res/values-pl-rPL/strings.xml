@@ -1,16 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Projekt</string>
     <string name="menu_order">Lista zamówień</string>
     <string name="menu_sms">Obsługa SMS</string>
     <string name="menu_share">Udostępnij</string>
     <string name="menu_about">O programie</string>
-    <string name="menu_send_sms">Wyślij SMS</string>
-    <string name="menu_start" translatable="false">Start</string>
     <string name="menu_shop_location">Zlokalizuj sklep</string>
-    <string name="shortcut_sms_short_label" translatable="false">SMS</string>
     <string name="shortcut_sms_long_label">Wyślij SMS</string>
     <string name="shortcut_sms_disabled_label">Usługa wysyłania SMSów nie jest obecnie dostępna</string>
-    <string name="shortcut_share_short_label">Udostępnij</string>
     <string name="shortcut_share_long_label">Udostępnij</string>
     <string name="shortcut_share_disabled_label">Usługa udostępniania nie jest obecnie dostępna</string>
     <string name="shortcut_sms_sent_short_label">Wysłane SMSy</string>
@@ -32,28 +29,28 @@
     <string name="locate_shop">Zlokalizuj sklep</string>
     <string name="about">Aplikacja została stworzona i jest rozwijana przez: xyz</string>
     <string name="refresh">Odśwież</string>
-    <string name="gps_best_provider">Najlepszy dostawca: </string>
-    <string name="gps_measurements">Odczyty: </string>
-    <string name="gps_longitude">Długość geograficzna: </string>
-    <string name="gps_latitude">Szerokość geograficzna: </string>
-    <string name="on">włączony </string>
-    <string name="off">wyłączony </string>
+    <string name="gps_best_provider">"Najlepszy dostawca: "</string>
+    <string name="gps_measurements">"Odczyty: "</string>
+    <string name="gps_longitude">"Długość geograficzna: "</string>
+    <string name="gps_latitude">"Szerokość geograficzna: "</string>
+    <string name="on">"włączony "</string>
+    <string name="off">"wyłączony "</string>
     <string name="menu_login">Zaloguj się</string>
     <string name="menu_logout">Wyloguj się</string>
     <string name="menu_register">Zarejetruj się</string>
     <string name="item">sztuka</string>
     <string name="item2">sztuki</string>
     <string name="item3">sztuk</string>
-    <string name="logged_in">Zalogowałeś się</string>
     <string name="failed_to_log_in">Nie udało Ci się zalogować</string>
+    <string name="logged_in">Zalogowałeś się</string>
     <string name="registered">Zarejstrowałeś się</string>
     <string name="logged_out">Wylogowałeś się</string>
     <string name="username_taken">Nazwa użytkownika jest zajęta</string>
     <string name="email_taken">E-mail jest zajęty</string>
+    <string name="menu_send_sms">Wyślij SMS</string>
     <string name="navigation_draw_open">Otwórz nawigację</string>
     <string name="navigation_draw_close">Zamknij nawigację</string>
     <string name="input_repeat_password">Powtórz hasło</string>
     <string name="passwords_dont_match">Hasła się nie zgadzają</string>
-
-
+    <string name="shortcut_share_short_label">Udostępnij</string>
 </resources>

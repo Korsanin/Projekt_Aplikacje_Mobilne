@@ -8,24 +8,27 @@
         android:shortcutLongLabel="@string/shortcut_sms_long_label"
         android:shortcutDisabledMessage="@string/shortcut_sms_disabled_label">
         <intent
-            android:action="android.intent.action.VIEW"
+            android:action="SendSms"
             android:targetPackage="com.example.projekt"
-            android:targetClass="com.example.projekt.MessageSystem.SendSms"/>
+            android:targetClass="com.example.projekt.MainActivity">
+            <extra android:name="Fragment"
+                android:value="sendSms"/>
+        </intent>
         <categories name="android.shortcut.conversation"/>
         <capability-binding android:key="actions.intent.CREATE_MESSAGE"/>
     </shortcut>
 
     <shortcut
-        android:shortcutId="email"
+        android:shortcutId="share"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_email_24"
-        android:shortcutShortLabel="@string/shortcut_email_short_label"
-        android:shortcutLongLabel="@string/shortcut_email_long_label"
-        android:shortcutDisabledMessage="@string/shortcut_email_disabled_label">
+        android:shortcutShortLabel="@string/shortcut_share_short_label"
+        android:shortcutLongLabel="@string/shortcut_share_long_label"
+        android:shortcutDisabledMessage="@string/shortcut_share_disabled_label">
         <intent
-            android:action="android.intent.action.VIEW"
+            android:action="Share"
             android:targetPackage="com.example.projekt"
-            android:targetClass="com.example.projekt.MessageSystem.SendEmail"/>
+            android:targetClass="com.example.projekt.MainActivity"/>
         <categories name="android.shortcut.conversation"/>
         <capability-binding android:key="actions.intent.CREATE_MESSAGE"/>
     </shortcut>

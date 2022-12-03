@@ -1,158 +1,179 @@
 package com.example.projekt;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.BaseColumns;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.example.projekt.DatabaseManagement.Checker;
 import com.example.projekt.DatabaseManagement.ItemReader;
-import com.example.projekt.MessageSystem.SendEmail;
-import com.example.projekt.MessageSystem.SendSms;
+import com.example.projekt.Fragments.MessageSystemFragments.ReceivedSmsFragment;
+import com.example.projekt.Fragments.MessageSystemFragments.SendSmsFragment;
+import com.example.projekt.Fragments.MessageSystemFragments.SentSmsFragment;
+import com.example.projekt.Fragments.MessageSystemFragments.ShareFragment;
+import com.example.projekt.Fragments.StartFragment;
+import com.example.projekt.Fragments.UserAccount.UserLoginFragment;
+import com.example.projekt.Fragments.UserAccount.UserRegisterFragment;
 import com.example.projekt.ShortcutManager.MyShortcutManager;
+import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private ItemReader.ItemReaderDbHelper dbHelper;
-    private List titles;
-    private List images;
-    private List prices;
-    private List ids;
-    private List elementList;
-    private ListView listView;
-    private HashMap<String,Object> hashMap;
+    private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyShortcutManager.createDynamicShortcuts(getApplicationContext());
+        drawerLayout = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this,
+                drawerLayout,
+                toolbar,
+                R.string.navigation_draw_open,
+                R.string.navigation_draw_close);
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StartFragment()).commit();
 
         dbHelper = new ItemReader.ItemReaderDbHelper(getApplicationContext());
 
-        // Test
-
 //        dbHelper.dropTables();
-
-//        dbHelper.dropTable(ItemReader.ItemEntry.TABLE_NAME_COMPUTER);
-
-//        dbHelper.truncateTable(ItemReader.ItemEntry.TABLE_NAME_COMPUTER);
 
         Checker.check(dbHelper);
 
-//        dbHelper.createTables();
-//        CreateData.CreateDatabaseData(dbHelper);
-
-//        Log.v("TEST",dbHelper.readDataSms(ItemReader.ItemEntry.COLUMN_NAME_SMS_MESSAGE,null,null).toString());
-
-        ids = dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_COMPUTER,BaseColumns._ID,null,null);
-        titles = dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_COMPUTER,ItemReader.ItemEntry.COLUMN_NAME_COMPUTER,null,null);
-        images = dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_COMPUTER,ItemReader.ItemEntry.COLUMN_NAME_COMPUTER_PHOTO,null,null);
-        prices  = dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_COMPUTER,ItemReader.ItemEntry.COLUMN_NAME_COMPUTER_PRICE,null,null);
-
-        listView = findViewById(R.id.simpleListView);
-
-        elementList = new ArrayList();
-
-        for(int i=0;i<titles.size();i++){
-            hashMap = new HashMap<>();
-            hashMap.put("title",titles.get(i));
-            hashMap.put("image",images.get(i));
-            hashMap.put("price",prices.get(i)+"zł");
-            elementList.add(hashMap);
+        SharedPreferences sharedPreferences = getSharedPreferences("USERDATA", Context.MODE_PRIVATE);
+        if(sharedPreferences.getString("USERNAME","")==null || sharedPreferences.getString("USERNAME","")==""){
+            toolbar.inflateMenu(R.menu.menu_login);
+        } else{
+            toolbar.inflateMenu(R.menu.menu_logout);
         }
 
-        String[] from={"image","title","price"};
-        int[] to={
-                R.id.imageViewListItem,
-                R.id.titleListItem,
-                R.id.priceListItem
-        };
-        SimpleAdapter simpleAdapter = new SimpleAdapter(
-                getApplicationContext(),
-                elementList,
-                R.layout.list_view_item,
-                from,
-                to
-        );
-
-        listView.setAdapter(simpleAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.v("TAG","------------"+titles.get(i)+"\n"+images.get(i)+"\n"+prices.get(i));
-                SharedPreferences computer_set = getSharedPreferences("COMPUTER_SET", Context.MODE_PRIVATE);
-                SharedPreferences.Editor computer_set_editor = computer_set.edit();
-                Intent intent = new Intent(getApplicationContext(),UsersOrder.class);
-                computer_set_editor.putString("ID",ids.get(i).toString());
-                computer_set_editor.putString("TITLE",titles.get(i).toString());
-                computer_set_editor.putString("IMAGE",images.get(i).toString());
-                computer_set_editor.putInt("PRICE",Integer.valueOf(prices.get(i).toString()));
-                computer_set_editor.apply();
-                startActivity(intent);
+            public boolean onMenuItemClick(MenuItem item) {
+                SharedPreferences sharedPreferences = getSharedPreferences("USERDATA", Context.MODE_PRIVATE);
+                if(sharedPreferences.getString("USERNAME","")=="" || sharedPreferences.getString("USERNAME","")==null) {
+                    switch (item.getItemId()) {
+                        case R.id.menu_login:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserLoginFragment()).commit();
+                            Toast.makeText(getApplicationContext(), R.string.menu_login, Toast.LENGTH_SHORT).show();
+                            break;
+                        case R.id.menu_register:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserRegisterFragment()).commit();
+                            Toast.makeText(getApplicationContext(), R.string.menu_register, Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            return false;
+                    }
+                } else{
+                    switch (item.getItemId()) {
+                        case R.id.menu_logout:
+                            Toast.makeText(getApplicationContext(), R.string.logged_out, Toast.LENGTH_SHORT).show();
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.clear();
+                            editor.apply();
+                            finish();
+                            startActivity(getIntent());
+                            break;
+                        default:
+                            return false;
+                    }
+                }
+                return false;
             }
         });
 
 
+
+        Log.v("TAG",getIntent().getAction());
+
+
+        MyShortcutManager.deleteDynamicShortcuts(getApplicationContext());
+        MyShortcutManager.createDynamicShortcuts(getApplicationContext());
+
+        switch (getIntent().getAction()){
+            case "SendSms":
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SendSmsFragment()).commit();
+                break;
+            case "SentSms":
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SentSmsFragment()).commit();
+                break;
+            case "Share":
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShareFragment()).commit();
+                break;
+            case "ReceivedSms":
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReceivedSmsFragment()).commit();
+                break;
+        }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu,menu);
-        return super.onCreateOptionsMenu(menu);
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.orderMenuItem:
-                Toast.makeText(this, R.string.menu_order, Toast.LENGTH_SHORT).show();
+            case R.id.startMenuItem:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StartFragment()).commit();
+                Toast.makeText(this, R.string.menu_start, Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.smsMenuItem:
-                Toast.makeText(this, R.string.menu_sms, Toast.LENGTH_SHORT).show();
-                Intent sms = new Intent(getApplicationContext(), SendSms.class);
-                startActivity(sms);
+
+            case R.id.sendSmsMenuItem:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SendSmsFragment()).commit();
+                Toast.makeText(this, R.string.menu_send_sms, Toast.LENGTH_SHORT).show();
                 break;
+
+            case R.id.sentSmsMenuItem:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SentSmsFragment()).commit();
+                Toast.makeText(this, R.string.menu_sms_sent, Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.receivedSmsMenuItem:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReceivedSmsFragment()).commit();
+                Toast.makeText(this, R.string.menu_sms_received, Toast.LENGTH_SHORT).show();
+                break;
+
             case R.id.shareMenuItem:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShareFragment()).commit();
                 Toast.makeText(this, R.string.menu_share, Toast.LENGTH_SHORT).show();
-                Intent email = new Intent(getApplicationContext(), SendEmail.class);
-                startActivity(email);
                 break;
+
             case R.id.gpsMenuItem:
-                Toast.makeText(this, R.string.shop_location, Toast.LENGTH_SHORT).show();
-                Intent gps = new Intent(getApplicationContext(), GPS.class);
-                startActivity(gps);
-                break;
-            case R.id.aboutMenuItem:
-                Toast.makeText(this, R.string.about, Toast.LENGTH_SHORT).show();
+                Intent gpsIntent = new Intent(getApplicationContext(),GPS.class);
+                startActivity(gpsIntent);
+                Toast.makeText(this, R.string.locate_shop, Toast.LENGTH_SHORT).show();
                 break;
             default:
-                return super.onOptionsItemSelected(item);
+                return false;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
-
-
 
     @Override
     protected void onDestroy() {
@@ -161,6 +182,5 @@ public class MainActivity extends AppCompatActivity {
 //        MyShortcutManager.deleteDynamicShortcuts(getApplicationContext());
         super.onDestroy();
     }
-
 
 }

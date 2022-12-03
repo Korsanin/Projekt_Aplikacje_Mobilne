@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/menu_order" android:id="@+id/orderMenuItem"></item>
-    <item android:title="@string/menu_sms" android:id="@+id/smsMenuItem"></item>
-    <item android:title="@string/menu_share" android:id="@+id/shareMenuItem"></item>
-    <item android:title="@string/menu_shop_location" android:id="@+id/gpsMenuItem"></item>
-    <item android:title="@string/menu_about" android:id="@+id/aboutMenuItem"></item>
+    <group
+        android:checkableBehavior="single">
+        <item android:title="@string/menu_start" android:id="@+id/startMenuItem"/>
+        <item android:title="@string/menu_order" android:id="@+id/orderMenuItem"></item>
+        <item android:title="@string/menu_sms">
+            <menu>
+                <item android:id="@+id/sendSmsMenuItem" android:title="@string/menu_send_sms"/>
+                <item android:id="@+id/sentSmsMenuItem" android:title="@string/menu_sms_sent"/>
+                <item android:id="@+id/receivedSmsMenuItem" android:title="@string/menu_sms_received"/>
+            </menu>
+        </item>
+        <item android:title="@string/menu_share" android:id="@+id/shareMenuItem"></item>
+        <item android:title="@string/menu_shop_location" android:id="@+id/gpsMenuItem"></item>
+        <item android:title="@string/menu_about" android:id="@+id/aboutMenuItem"></item>
+    </group>
 </menu>

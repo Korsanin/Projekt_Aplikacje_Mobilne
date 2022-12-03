@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MessageSystem.ReceivedSms"
+    tools:context=".MainActivity"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sms_received"
+        android:text="@string/menu_sms_sent"
         android:textColor="@color/gray"
         android:textAlignment="center"
         android:layout_margin="5dp"/>
@@ -18,8 +18,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:id="@+id/receivedSms"/>
-
+        android:id="@+id/sentSms"
+        android:layout_margin="5dp"/>
 
 </LinearLayout>

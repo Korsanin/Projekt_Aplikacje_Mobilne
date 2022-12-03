@@ -6,9 +6,8 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
 
+import com.example.projekt.MainActivity;
 import com.example.projekt.R;
-import com.example.projekt.MessageSystem.ReceivedSms;
-import com.example.projekt.MessageSystem.SentSms;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +19,14 @@ public class MyShortcutManager{
                 .setShortLabel(context.getString(R.string.shortcut_sms_sent_short_label))
                 .setLongLabel(context.getString(R.string.shortcut_sms_sent_long_label))
                 .setIcon(Icon.createWithResource(context,R.drawable.ic_baseline_list_24))
-                .setIntent(new Intent(Intent.ACTION_VIEW,null,context,SentSms.class))
+                .setIntent(new Intent("SentSms",null,context,MainActivity.class))
                 .build();
 
         ShortcutInfo smsReceived = new ShortcutInfo.Builder(context,"id2")
                 .setShortLabel(context.getString(R.string.shortcut_sms_received_short_label))
                 .setLongLabel(context.getString(R.string.shortcut_sms_received_long_label))
                 .setIcon(Icon.createWithResource(context,R.drawable.ic_baseline_list_24))
-                .setIntent(new Intent(Intent.ACTION_VIEW,null,context, ReceivedSms.class))
+                .setIntent(new Intent("ReceivedSms",null,context, MainActivity.class))
                 .build();
 
         List<ShortcutInfo> shortcutInfoList = new ArrayList<>();
@@ -43,4 +42,6 @@ public class MyShortcutManager{
         shortcutIdsList.add("id2");
         shortcutManager.disableShortcuts(shortcutIdsList);
     }
+
+
 }

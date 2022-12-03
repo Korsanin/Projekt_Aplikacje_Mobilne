@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userRegisterUsernameInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700"
+        android:layout_margin="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userRegisterUsernameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/gray"
+            android:hint="@string/input_username"
+            android:inputType="text"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userRegisterEmailInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700"
+        android:layout_below="@id/userRegisterUsernameInputLayout"
+        android:layout_margin="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userRegisterEmailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/gray"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userRegisterPasswordInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userRegisterEmailInputLayout"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700"
+        android:layout_margin="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userRegisterPasswordInput"
+            android:layout_width="match_parent"
+            android:textColor="@color/gray"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/input_password"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userRegisterRepeatPasswordInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userRegisterPasswordInputLayout"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700"
+        android:layout_margin="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userRegisterRepeatPasswordInput"
+            android:layout_width="match_parent"
+            android:textColor="@color/gray"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/input_repeat_password"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userRegisterPhoneNumberInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700"
+        android:layout_below="@id/userRegisterRepeatPasswordInputLayout"
+        android:layout_margin="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userRegisterPhoneNumberInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/gray"
+            android:hint="@string/input_phone_number"
+            android:inputType="number"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_register"
+        android:backgroundTint="@color/teal_700"
+        android:textColor="@color/light_gray"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/userRegisterPhoneNumberInputLayout"/>
+</RelativeLayout>
