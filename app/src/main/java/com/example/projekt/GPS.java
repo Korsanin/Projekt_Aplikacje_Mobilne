@@ -200,7 +200,11 @@ public class GPS extends AppCompatActivity implements  LocationListener {
             yourLocation = new GeoPoint(location.getLatitude(),location.getLongitude());
             mapController.setCenter(yourLocation);
             mapController.animateTo(yourLocation);
-            addMarkerToMap(yourLocation);
+            try{
+                addMarkerToMap(yourLocation);
+            } catch (Exception e){
+
+            }
 
             Log.d(TAG,amount+" pomiar: "+bp + " " + location.getLongitude() + " " + location.getLatitude());
 
