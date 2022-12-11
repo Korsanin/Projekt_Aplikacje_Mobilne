@@ -113,6 +113,28 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userRegisterAddressInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/teal_700"
+        app:hintTextColor="@color/teal_700"
+        app:boxBackgroundColor="@color/light_gray"
+        app:boxStrokeColor="@color/teal_700"
+        android:layout_margin="5dp"
+        android:layout_below="@id/userRegisterPhoneNumberInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userRegisterAddressInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/gray"
+            android:hint="@string/address"
+            android:inputType="text"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
@@ -121,5 +143,5 @@
         android:backgroundTint="@color/teal_700"
         android:textColor="@color/light_gray"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/userRegisterPhoneNumberInputLayout"/>
+        android:layout_below="@id/userRegisterAddressInputLayout"/>
 </RelativeLayout>

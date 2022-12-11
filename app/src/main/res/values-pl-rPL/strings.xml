@@ -25,7 +25,7 @@
     <string name="input_password">Hasło</string>
     <string name="menu_sms_received">Otrzymane SMSy</string>
     <string name="menu_sms_sent">Wysłane SMSy</string>
-    <string name="input_buy">Kup</string>
+    <string name="input_buy">Dodaj do koszyka</string>
     <string name="locate_shop">Zlokalizuj sklep</string>
     <string name="about">Aplikacja została stworzona i jest rozwijana przez: xyz</string>
     <string name="refresh">Odśwież</string>
@@ -53,4 +53,14 @@
     <string name="input_repeat_password">Powtórz hasło</string>
     <string name="passwords_dont_match">Hasła się nie zgadzają</string>
     <string name="shortcut_share_short_label">Udostępnij</string>
+    <string name="address">Adres</string>
+    <string name="must_login">Musisz się zalogować</string>
+    <string name="menu_cart">Koszyk</string>
+    <string name="order">Zamówienie</string>
+    <string name="order2">Zamówienia</string>
+    <string name="order3">Zamówień</string>
+    <string name="reset_button">Zresetuj</string>
+    <string name="buy_button">Zakup</string>
+    <string name="reset">Zresetowano</string>
+    <string name="buy">Zakupiono</string>
 </resources>

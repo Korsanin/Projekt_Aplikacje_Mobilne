@@ -4,6 +4,7 @@
         android:checkableBehavior="single">
         <item android:title="@string/menu_start" android:id="@+id/startMenuItem"/>
         <item android:title="@string/menu_order" android:id="@+id/orderMenuItem"></item>
+        <item android:title="@string/menu_cart" android:id="@+id/cartMenuItem"></item>
         <item android:title="@string/menu_sms">
             <menu>
                 <item android:id="@+id/sendSmsMenuItem" android:title="@string/menu_send_sms"/>

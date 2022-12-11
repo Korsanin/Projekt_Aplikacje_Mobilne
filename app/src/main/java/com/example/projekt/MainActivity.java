@@ -21,9 +21,11 @@ import com.example.projekt.Fragments.MessageSystemFragments.ReceivedSmsFragment;
 import com.example.projekt.Fragments.MessageSystemFragments.SendSmsFragment;
 import com.example.projekt.Fragments.MessageSystemFragments.SentSmsFragment;
 import com.example.projekt.Fragments.MessageSystemFragments.ShareFragment;
+import com.example.projekt.Fragments.ShopFragments.CartFragment;
 import com.example.projekt.Fragments.StartFragment;
 import com.example.projekt.Fragments.UserAccount.UserLoginFragment;
 import com.example.projekt.Fragments.UserAccount.UserRegisterFragment;
+import com.example.projekt.Fragments.ShopFragments.UserOrdersFragment;
 import com.example.projekt.ShortcutManager.MyShortcutManager;
 import com.google.android.material.navigation.NavigationView;
 
@@ -92,6 +94,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.clear();
                             editor.apply();
+
+                            SharedPreferences cart = getSharedPreferences("ORDER",Context.MODE_PRIVATE);
+                            SharedPreferences.Editor cart_edit = cart.edit();
+                            cart_edit.putBoolean("EMPTY",true);
+                            cart_edit.apply();
+
                             finish();
                             startActivity(getIntent());
                             break;
@@ -142,6 +150,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.startMenuItem:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StartFragment()).commit();
                 Toast.makeText(this, R.string.menu_start, Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.orderMenuItem:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserOrdersFragment()).commit();
+                Toast.makeText(this, R.string.menu_order, Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.cartMenuItem:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
+                Toast.makeText(this, R.string.menu_cart, Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.sendSmsMenuItem:

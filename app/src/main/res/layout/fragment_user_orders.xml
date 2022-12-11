@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_margin="25dp"
+        android:id="@+id/orderText"
+        android:textAlignment="center"/>
+
+    <ListView
+        android:id="@+id/list_of_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_margin="25dp"
+        android:divider="@color/purple_500"
+        android:dividerHeight="1dp"
+        />
+
+</LinearLayout>

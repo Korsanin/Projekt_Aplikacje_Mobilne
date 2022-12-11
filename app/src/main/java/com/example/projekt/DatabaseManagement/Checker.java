@@ -30,6 +30,11 @@ public class Checker {
             dbHelper.createTable(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER);
         }
         try{
+            dbHelper.checkTable(ItemReader.ItemEntry.TABLE_NAME_USER_ORDERS);
+        } catch (Exception e){
+            dbHelper.createTable(ItemReader.ItemEntry.TABLE_NAME_USER_ORDERS);
+        }
+        try{
             dbHelper.checkTable(ItemReader.ItemEntry.TABLE_NAME_SMS);
         } catch (Exception e){
             dbHelper.createTable(ItemReader.ItemEntry.TABLE_NAME_SMS);

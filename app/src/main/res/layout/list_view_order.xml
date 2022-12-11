@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:id="@+id/imageViewListOrderComputer"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_launcher_background"/>
+
+        <TextView
+            android:id="@+id/titleListOrderComputer"
+            android:layout_toRightOf="@id/imageViewListOrderComputer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/priceListOrderComputer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imageViewListOrderComputer"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:layout_below="@id/titleListOrderComputer"
+            android:textSize="10sp"
+            android:layout_marginTop="2.5dp"
+            android:padding="5dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:id="@+id/imageViewListOrderMouse"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/titleListOrderMouse"
+            android:layout_toRightOf="@id/imageViewListOrderMouse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/priceListOrderMouse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imageViewListOrderMouse"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:layout_below="@id/titleListOrderMouse"
+            android:textSize="10sp"
+            android:layout_marginTop="2.5dp"
+            android:padding="5dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:id="@+id/imageViewListOrderKeyboard"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/titleListOrderKeyboard"
+            android:layout_toRightOf="@id/imageViewListOrderKeyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/priceListOrderKeyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imageViewListOrderKeyboard"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:layout_below="@id/titleListOrderKeyboard"
+            android:textSize="10sp"
+            android:layout_marginTop="2.5dp"
+            android:padding="5dp" />
+    </RelativeLayout>
+
+</LinearLayout>

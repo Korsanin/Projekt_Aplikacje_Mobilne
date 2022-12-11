@@ -65,7 +65,8 @@
             android:hint="@string/input_username"
             android:textAlignment="center"
             android:textColor="@color/gray"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:enabled="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <RelativeLayout
@@ -108,7 +109,7 @@
         android:layout_marginTop="10dp" />
 
     <Button
-        android:id="@+id/buy"
+        android:id="@+id/addToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/input_buy"

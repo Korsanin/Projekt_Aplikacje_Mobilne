@@ -2,6 +2,7 @@ package com.example.projekt.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import com.example.projekt.R;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapterMouse extends RecyclerView.Adapter<RecyclerViewAdapterMouse.ViewHolder> {
     private Context context;
     private List<Integer> imgs;
     private List<String>  titles;
@@ -25,7 +26,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private CheckBox lastSelected;
 
 
-    public RecyclerViewAdapter(Context context, List<Integer> imgs, List<String> titles, List<Integer> prices, List<Integer> ids) {
+    public RecyclerViewAdapterMouse(Context context, List<Integer> imgs, List<String> titles, List<Integer> prices, List<Integer> ids) {
         this.context = context;
         this.imgs = imgs;
         this.titles = titles;
@@ -46,16 +47,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.imageView.setImageResource(imgs.get(position));
         holder.title.setText(titles.get(position));
         holder.price.setText(prices.get(position)+"zł");
-        holder.checkBox.setText(ids.get(position)+"");
 
         if(position==0){
             lastSelected=null;
         }
 
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ORDER",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Log.v("UserOrder",holder.getAdapterPosition()+"");
+        editor.putString("MOUSE", "0");
+        editor.commit();
+
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(holder.checkBox.isChecked()){
+                    editor.putString("MOUSE", String.valueOf(ids.get(holder.getAdapterPosition())));
+                    editor.commit();
                     if(lastSelected!=null){
                         lastSelected.setChecked(false);
                         lastSelected=holder.checkBox;

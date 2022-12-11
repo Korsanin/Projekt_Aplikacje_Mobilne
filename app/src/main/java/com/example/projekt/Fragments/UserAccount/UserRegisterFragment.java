@@ -29,6 +29,7 @@ public class UserRegisterFragment extends Fragment {
     private TextInputEditText passwordInput;
     private TextInputEditText passwordRepeatInput;
     private TextInputEditText phoneNumberInput;
+    private TextInputEditText addressInput;
     private Button button;
     private ItemReader.ItemReaderDbHelper dbHelper;
 
@@ -48,6 +49,7 @@ public class UserRegisterFragment extends Fragment {
         passwordInput = rootView.findViewById(R.id.userRegisterPasswordInput);
         passwordRepeatInput = rootView.findViewById(R.id.userRegisterRepeatPasswordInput);
         phoneNumberInput = rootView.findViewById(R.id.userRegisterPhoneNumberInput);
+        addressInput = rootView.findViewById(R.id.userRegisterAddressInput);
         button = rootView.findViewById(R.id.buttonRegister);
 
         button.setOnClickListener(v -> {
@@ -58,6 +60,7 @@ public class UserRegisterFragment extends Fragment {
             String password = String.valueOf(passwordInput.getText());
             String password_repeat = String.valueOf(passwordRepeatInput.getText());
             String phoneNumber = String.valueOf(phoneNumberInput.getText());
+            String address = String.valueOf(addressInput.getText());
 
             boolean isUsernameAvailable=false;
             boolean isEmailAvailable=false;
@@ -84,20 +87,24 @@ public class UserRegisterFragment extends Fragment {
                 user_account_values.put(ItemReader.ItemEntry.COLUMN_NAME_USER_EMAIL,email);
                 user_account_values.put(ItemReader.ItemEntry.COLUMN_NAME_USER_PASSWORD,password);
                 user_account_values.put(ItemReader.ItemEntry.COLUMN_NAME_USER_PHONE_NUMBER,phoneNumber);
+                user_account_values.put(ItemReader.ItemEntry.COLUMN_NAME_USER_ADDRESS,address);
 
                 long newRowIdUserAccount = db_write.insert(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,null,user_account_values);
 
-                Log.v(CREATE_DATA_TAG,newRowIdUserAccount + " \n " + dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_USERNAME,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID) + " \n " + dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_EMAIL,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID) + " \n "+dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_PASSWORD,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID)+ " \n "+dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_PHONE_NUMBER,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID));
+                Log.v(CREATE_DATA_TAG,newRowIdUserAccount + " \n " + dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_USERNAME,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID) + " \n " + dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_EMAIL,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID) + " \n "+dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_PASSWORD,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID)+ " \n "+dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_PHONE_NUMBER,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID)+ " \n " + dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ACCOUNT,ItemReader.ItemEntry.COLUMN_NAME_USER_ADDRESS,String.valueOf((int)newRowIdUserAccount),BaseColumns._ID));
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, new UserLoginFragment()).commit();
             } else{
                 if(!isUsernameAvailable){
-                    Toast.makeText(getContext(), resources.getString(R.string.username_taken), Toast.LENGTH_SHORT).show();
-                }else if(!isEmailAvailable){
-                    Toast.makeText(getContext(), resources.getString(R.string.email_taken), Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(), resources.getString(R.string.passwords_dont_match), Toast.LENGTH_SHORT).show();
+                    usernameInput.setError(resources.getString(R.string.username_taken));
+                }
+                if(!isEmailAvailable){
+                    emailInput.setError(resources.getString(R.string.email_taken));
+                }
+                if(!doPasswordMatch){
+                    passwordInput.setText(resources.getString(R.string.passwords_dont_match));
+                    passwordRepeatInput.setText(resources.getString(R.string.passwords_dont_match));
                 }
             }
 

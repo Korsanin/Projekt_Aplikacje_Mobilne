@@ -1,11 +1,8 @@
 package com.example.projekt.DatabaseManagement;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
@@ -23,6 +20,7 @@ public final class ItemReader {
         public static final String TABLE_NAME_MOUSE = "mouses";
         public static final String TABLE_NAME_KEYBOARD = "keyboards";
         public static final String TABLE_NAME_USER_ORDER = "user_order";
+        public static final String TABLE_NAME_USER_ORDERS = "user_orders";
         public static final String TABLE_NAME_USER_ACCOUNT = "user_account";
         public static final String TABLE_NAME_SMS = "sms";
         //        public static final String COLUMN_NAME_TITLE = "title";
@@ -45,9 +43,13 @@ public final class ItemReader {
         public static final String COLUMN_NAME_USER_EMAIL = "email";
         public static final String COLUMN_NAME_USER_PHONE_NUMBER = "phone_number";
         public static final String COLUMN_NAME_USER_ID = "user_id";
+        public static final String COLUMN_NAME_USER_ADDRESS = "address";
         public static final String COLUMN_NAME_SMS_MESSAGE = "sms_message";
         public static final String COLUMN_NAME_SMS_PHONE_NUMBER = "sms_phone_number";
         public static final String COLUMN_NAME_SMS_TYPE = "sms_type";
+        public static final String COLUMN_NAME_USER_ORDER_ID = "user_order_id";
+        public static final String COLUMN_NAME_USER_ORDERS_ID = "user_orders_id";
+        public static final String COLUMN_NAME_USER_ORDERS_DATE = "user_orders_date";
     }
 
     private static final String SQL_CREATE_ENTRIES_COMPUTER =
@@ -81,20 +83,29 @@ public final class ItemReader {
                     + ItemEntry.COLUMN_NAME_USER_USERNAME + " TEXT,"
                     + ItemEntry.COLUMN_NAME_USER_PASSWORD + " TEXT, "
                     + ItemEntry.COLUMN_NAME_USER_EMAIL + " TEXT,"
+                    + ItemEntry.COLUMN_NAME_USER_ADDRESS + " TEXT,"
                     + ItemEntry.COLUMN_NAME_USER_PHONE_NUMBER + " INT)";
 
     private static final String SQL_CREATE_ENTRIES_USER_ORDER =
             "CREATE TABLE "
                     + ItemEntry.TABLE_NAME_USER_ORDER + " ("
                     + ItemEntry._ID + " INTEGER PRIMARY KEY, "
-                    + ItemEntry.COLUMN_NAME_USER_ID + " INT, "
                     + ItemEntry.COLUMN_NAME_AMOUNT + " INT, "
                     + ItemEntry.COLUMN_NAME_COMPUTER_ID + " INT ,"
                     + ItemEntry.COLUMN_NAME_MOUSE_ID + " INT ,"
+                    + ItemEntry.COLUMN_NAME_USER_ORDERS_ID + " INT, "
                     + ItemEntry.COLUMN_NAME_KEYBOARD_ID + " INT ,"
                     + "FOREIGN KEY (" + ItemEntry.COLUMN_NAME_COMPUTER_ID + ") REFERENCES "+ItemEntry.TABLE_NAME_COMPUTER+" (" + ItemEntry._ID+"),"
                     + "FOREIGN KEY (" + ItemEntry.COLUMN_NAME_MOUSE_ID + ") REFERENCES "+ItemEntry.TABLE_NAME_MOUSE+" (" + ItemEntry._ID+"),"
-                    + "FOREIGN KEY (" + ItemEntry.COLUMN_NAME_KEYBOARD_ID + ") REFERENCES "+ItemEntry.TABLE_NAME_KEYBOARD+" (" + ItemEntry._ID+"),"
+                    + "FOREIGN KEY (" + ItemEntry.COLUMN_NAME_USER_ORDERS_ID + ") REFERENCES "+ItemEntry.TABLE_NAME_USER_ORDERS+" (" + ItemEntry._ID+"),"
+                    + "FOREIGN KEY (" + ItemEntry.COLUMN_NAME_KEYBOARD_ID + ") REFERENCES "+ItemEntry.TABLE_NAME_KEYBOARD+" (" + ItemEntry._ID+"))";
+
+    private static final String SQL_CREATE_ENTRIES_USER_ORDERS =
+            "CREATE TABLE "
+                    + ItemEntry.TABLE_NAME_USER_ORDERS + " ("
+                    + ItemEntry._ID + " INTEGER PRIMARY KEY, "
+                    + ItemEntry.COLUMN_NAME_USER_ID + " INT, "
+                    + ItemEntry.COLUMN_NAME_USER_ORDERS_DATE+ " SMALLDATETIME, "
                     + "FOREIGN KEY (" + ItemEntry.COLUMN_NAME_USER_ID + ") REFERENCES "+ItemEntry.TABLE_NAME_USER_ACCOUNT+" (" + ItemEntry._ID+"))";
 
     private static final String SQL_CREATE_ENTRIES_SMS =
@@ -129,8 +140,12 @@ public final class ItemReader {
             "DROP TABLE IF EXISTS "
                     + ItemEntry.TABLE_NAME_SMS;
 
+    private static final String SQL_DELETE_ENTRIES_USER_ORDERS =
+            "DROP TABLE IF EXISTS "
+                    + ItemEntry.TABLE_NAME_USER_ORDERS;
+
     public static class ItemReaderDbHelper extends SQLiteOpenHelper {
-        public static final int DATABASE_VERSION = 3;
+        public static final int DATABASE_VERSION = 6;
         public static final String DATABASE_NAME = "ItemReader.db";
 
         public ItemReaderDbHelper(Context context){
@@ -145,6 +160,7 @@ public final class ItemReader {
             sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_USER_ACCOUNT);
             sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_USER_ORDER);
             sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_SMS);
+            sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_USER_ORDERS);
         }
 
         @Override
@@ -155,6 +171,7 @@ public final class ItemReader {
             sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES_USER_ACCOUNT);
             sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES_USER_ORDER);
             sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES_SMS);
+            sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES_USER_ORDERS);
             onCreate(sqLiteDatabase);
         }
 
@@ -199,16 +216,17 @@ public final class ItemReader {
                             ItemEntry.COLUMN_NAME_USER_USERNAME,
                             ItemEntry.COLUMN_NAME_USER_EMAIL,
                             ItemEntry.COLUMN_NAME_USER_PASSWORD,
+                            ItemEntry.COLUMN_NAME_USER_ADDRESS,
                             ItemEntry.COLUMN_NAME_USER_PHONE_NUMBER
                     };
                     break;
                 case ItemEntry.TABLE_NAME_USER_ORDER:
                     projection = new String[]{
                             BaseColumns._ID,
-                            ItemReader.ItemEntry.COLUMN_NAME_USER_ID,
                             ItemReader.ItemEntry.COLUMN_NAME_COMPUTER_ID,
                             ItemReader.ItemEntry.COLUMN_NAME_MOUSE_ID,
                             ItemReader.ItemEntry.COLUMN_NAME_KEYBOARD_ID,
+                            ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_ID,
                             ItemReader.ItemEntry.COLUMN_NAME_AMOUNT
                     };
                     break;
@@ -218,6 +236,13 @@ public final class ItemReader {
                             ItemEntry.COLUMN_NAME_SMS_PHONE_NUMBER,
                             ItemEntry.COLUMN_NAME_SMS_MESSAGE,
                             ItemEntry.COLUMN_NAME_SMS_TYPE,
+                    };
+                    break;
+                case ItemEntry.TABLE_NAME_USER_ORDERS:
+                    projection = new String[]{
+                            BaseColumns._ID,
+                            ItemReader.ItemEntry.COLUMN_NAME_USER_ID,
+                            ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_DATE
                     };
                     break;
                 default:
@@ -259,7 +284,8 @@ public final class ItemReader {
                         || columnNameToShow == ItemReader.ItemEntry.COLUMN_NAME_COMPUTER_ID
                         || columnNameToShow == ItemReader.ItemEntry.COLUMN_NAME_KEYBOARD_ID
                         || columnNameToShow == ItemReader.ItemEntry.COLUMN_NAME_USER_ID
-                        || columnNameToShow == ItemReader.ItemEntry.COLUMN_NAME_MOUSE_ID){
+                        || columnNameToShow == ItemReader.ItemEntry.COLUMN_NAME_MOUSE_ID
+                        || columnNameToShow == ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_ID){
                     int item = cursor.getInt(
                             cursor.getColumnIndexOrThrow(columnNameToShow)
                     );
@@ -312,11 +338,25 @@ public final class ItemReader {
             return db_write.delete(ItemEntry.TABLE_NAME_USER_ORDER,selection,selectionArgs);
         }
 
+        public int deleteDataUserOrderByOrdersId(String like){
+            SQLiteDatabase db_write = getWritableDatabase();
+            String selection = ItemEntry.COLUMN_NAME_USER_ORDERS_ID + " LIKE ?";
+            String[] selectionArgs = {like};
+            return db_write.delete(ItemEntry.TABLE_NAME_USER_ORDER,selection,selectionArgs);
+        }
+
         public int deleteDataSms(String like){
             SQLiteDatabase db_write = getWritableDatabase();
             String selection = ItemEntry.COLUMN_NAME_SMS_PHONE_NUMBER + " LIKE ?";
             String[] selectionArgs = {like};
             return db_write.delete(ItemEntry.TABLE_NAME_SMS,selection,selectionArgs);
+        }
+
+        public int deleteDataUserOrders(String like){
+            SQLiteDatabase db_write = getWritableDatabase();
+            String selection = BaseColumns._ID + " LIKE ?";
+            String[] selectionArgs = {like};
+            return db_write.delete(ItemEntry.TABLE_NAME_USER_ORDERS,selection,selectionArgs);
         }
 
         public void dropTable(String table){
@@ -333,6 +373,7 @@ public final class ItemReader {
             db_write.execSQL(SQL_DELETE_ENTRIES_USER_ACCOUNT);
             db_write.execSQL(SQL_DELETE_ENTRIES_USER_ORDER);
             db_write.execSQL(SQL_DELETE_ENTRIES_SMS);
+            db_write.execSQL(SQL_DELETE_ENTRIES_USER_ORDERS);
         }
 
         public void truncateTable(String table){
@@ -349,6 +390,7 @@ public final class ItemReader {
             db_write.execSQL(SQL_CREATE_ENTRIES_USER_ACCOUNT);
             db_write.execSQL(SQL_CREATE_ENTRIES_USER_ORDER);
             db_write.execSQL(SQL_CREATE_ENTRIES_SMS);
+            db_write.execSQL(SQL_CREATE_ENTRIES_USER_ORDERS);
         }
 
         public void createTable(String table){
@@ -372,6 +414,9 @@ public final class ItemReader {
                     break;
                 case ItemEntry.TABLE_NAME_SMS:
                     db_write.execSQL(SQL_CREATE_ENTRIES_SMS);
+                    break;
+                case ItemEntry.TABLE_NAME_USER_ORDERS:
+                    db_write.execSQL(SQL_CREATE_ENTRIES_USER_ORDERS);
                     break;
             }
         }

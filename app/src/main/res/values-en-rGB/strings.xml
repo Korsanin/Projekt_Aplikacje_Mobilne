@@ -25,7 +25,7 @@
     <string name="input_password">Password</string>
     <string name="menu_sms_received">Received SMS</string>
     <string name="menu_sms_sent">Sent SMS</string>
-    <string name="input_buy">Buy</string>
+    <string name="input_buy">Add to cart</string>
     <string name="locate_shop">Locate shop</string>
     <string name="about">Application has been created and developed by: xyz</string>
     <string name="refresh">Refresh</string>
@@ -53,4 +53,14 @@
     <string name="input_repeat_password">Repeat password</string>
     <string name="passwords_dont_match">Passwords don\'t match</string>
     <string name="shortcut_share_short_label">Share</string>
+    <string name="address">Address</string>
+    <string name="must_login">You must log in</string>
+    <string name="menu_cart">Cart</string>
+    <string name="order">Order</string>
+    <string name="order2">Orders</string>
+    <string name="order3">Orders</string>
+    <string name="reset_button">Reset</string>
+    <string name="buy_button">Buy</string>
+    <string name="reset">Reseted</string>
+    <string name="buy">Bought</string>
 </resources>
