@@ -207,6 +207,8 @@ public class UsersOrderFragment extends Fragment {
                     orderValues.put(ItemReader.ItemEntry.COLUMN_NAME_AMOUNT,amount);
 
                     long id = db_write.insert(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER,null,orderValues);
+
+                    Toast.makeText(getContext(), getString(R.string.added_to_cart), Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e){
                     Log.v(TAG,e.getMessage());

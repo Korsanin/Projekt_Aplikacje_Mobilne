@@ -66,4 +66,5 @@
     <string name="input_fill_email">Fill e-mail</string>
     <string name="input_fill_content">Fill content</string>
     <string name="input_fill_phone_number">Fill phone number</string>
+    <string name="added_to_cart">Added to cart</string>
 </resources>
