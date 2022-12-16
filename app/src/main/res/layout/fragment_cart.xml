@@ -28,12 +28,12 @@
         android:orientation="horizontal">
         <Button
             android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="@string/buy_button"
             android:id="@+id/buy"/>
         <Button
             android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="@string/reset_button"
             android:id="@+id/reset" />
     </LinearLayout>
