@@ -190,9 +190,9 @@ public class UsersOrderFragment extends Fragment {
                     }
                 }
                 try{
-                    String mouse_id = order.getString("MOUSE","");
-                    String keyboard_id = order.getString("KEYBOARD","");
-                    String computer_id = computer_set.getString("ID","");
+                    String mouse_id = order.getString("MOUSE","-1");
+                    String keyboard_id = order.getString("KEYBOARD","-1");
+                    String computer_id = computer_set.getString("ID","-1");
                     int orders_id = order.getInt("OrderId",0);
                     int amount = seekBar.getProgress();
 

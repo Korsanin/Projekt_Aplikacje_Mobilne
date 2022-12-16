@@ -135,13 +135,27 @@ public class UserOrdersFragment extends Fragment {
             hashMap.put("computer_image",Integer.parseInt(computer_images.get(i).toString()));
             hashMap.put("computer_price",computer_prices.get(i)+"zł");
 
-            hashMap.put("mouse_title",mouse_titles.get(i));
-            hashMap.put("mouse_image",Integer.parseInt(mouse_images.get(i).toString()));
-            hashMap.put("mouse_price",mouse_prices.get(i)+"zł");
+            try{
+                hashMap.put("mouse_title",mouse_titles.get(i));
+                hashMap.put("mouse_image",Integer.parseInt(mouse_images.get(i).toString()));
+                hashMap.put("mouse_price",mouse_prices.get(i)+"zł");
+            }
+            catch (Exception e){
+                hashMap.put("mouse_title",null);
+                hashMap.put("mouse_image",null);
+                hashMap.put("mouse_price",null);
+            }
 
-            hashMap.put("keyboard_title",keyboard_titles.get(i));
-            hashMap.put("keyboard_image",Integer.parseInt(keyboard_images.get(i).toString()));
-            hashMap.put("keyboard_price",keyboard_prices.get(i)+"zł");
+            try{
+                hashMap.put("keyboard_title",keyboard_titles.get(i));
+                hashMap.put("keyboard_image",Integer.parseInt(keyboard_images.get(i).toString()));
+                hashMap.put("keyboard_price",keyboard_prices.get(i)+"zł");
+            } catch (Exception e){
+                hashMap.put("keyboard_title",null);
+                hashMap.put("keyboard_image",null);
+                hashMap.put("keyboard_price",null);
+            }
+
             elementList.add(hashMap);
         }
         String[] from = {"computer_title","computer_image","computer_price","mouse_title","mouse_image","mouse_price","keyboard_title","keyboard_image","keyboard_price"};

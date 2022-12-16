@@ -4,12 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="50dp"
         android:layout_margin="25dp"
-        android:id="@+id/cartText"
-        android:textAlignment="center"/>
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:id="@+id/cartText"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cartPrice"
+            android:textAlignment="center"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

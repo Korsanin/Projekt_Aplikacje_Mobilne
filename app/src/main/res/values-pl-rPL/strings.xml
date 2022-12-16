@@ -63,4 +63,7 @@
     <string name="buy_button">Zakup</string>
     <string name="reset">Zresetowano</string>
     <string name="buy">Zakupiono</string>
+    <string name="input_fill_email">Uzupełnij e-mail</string>
+    <string name="input_fill_content">Uzupełnij treść</string>
+    <string name="input_fill_phone_number">Uzupełnij numer telefonu</string>
 </resources>

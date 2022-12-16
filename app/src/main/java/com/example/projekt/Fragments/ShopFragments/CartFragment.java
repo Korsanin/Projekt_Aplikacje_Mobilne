@@ -59,6 +59,7 @@ public class CartFragment extends Fragment {
     private List keyboard_prices;
 
     private TextView orderText;
+    private TextView orderPrice;
 
     private HashMap<String,Object> hashMap;
     private List elementList;
@@ -84,6 +85,10 @@ public class CartFragment extends Fragment {
         listView = rootView.findViewById(R.id.cartItems);
 
         orderText = rootView.findViewById(R.id.cartText);
+        orderPrice = rootView.findViewById(R.id.cartPrice);
+
+        orderText.setLayoutParams(new LinearLayout.LayoutParams(width,100));;
+        orderPrice.setLayoutParams(new LinearLayout.LayoutParams(width,100));;
 
         cart = getContext().getSharedPreferences("ORDER", Context.MODE_PRIVATE);
 
@@ -132,19 +137,38 @@ public class CartFragment extends Fragment {
         Log.v("TAG",mouse_ids.toString() + "\n" + mouse_titles.toString() + "\n" + mouse_images.toString() +"\n" + mouse_prices.toString());
         Log.v("TAG",keyboard_ids.toString() + "\n" + keyboard_titles.toString() + "\n" + keyboard_images.toString() +"\n" + keyboard_prices.toString());
 
+        int price = 0;
+
         for(int i=0;i<computer_titles.size();i++){
             hashMap = new HashMap<>();
             hashMap.put("computer_title",computer_titles.get(i));
             hashMap.put("computer_image",Integer.parseInt(computer_images.get(i).toString()));
             hashMap.put("computer_price",computer_prices.get(i)+"zł");
+            price+=(int)computer_prices.get(i);
 
-            hashMap.put("mouse_title",mouse_titles.get(i));
-            hashMap.put("mouse_image",Integer.parseInt(mouse_images.get(i).toString()));
-            hashMap.put("mouse_price",mouse_prices.get(i)+"zł");
+            try{
+                hashMap.put("mouse_title",mouse_titles.get(i));
+                hashMap.put("mouse_image",Integer.parseInt(mouse_images.get(i).toString()));
+                hashMap.put("mouse_price",mouse_prices.get(i)+"zł");
+                price+=(int)mouse_prices.get(i);
+            } catch (Exception e){
+                hashMap.put("mouse_title",null);
+                hashMap.put("mouse_image",null);
+                hashMap.put("mouse_price",null);
+            }
 
-            hashMap.put("keyboard_title",keyboard_titles.get(i));
-            hashMap.put("keyboard_image",Integer.parseInt(keyboard_images.get(i).toString()));
-            hashMap.put("keyboard_price",keyboard_prices.get(i)+"zł");
+            try{
+                hashMap.put("keyboard_title",keyboard_titles.get(i));
+                hashMap.put("keyboard_image",Integer.parseInt(keyboard_images.get(i).toString()));
+                hashMap.put("keyboard_price",keyboard_prices.get(i)+"zł");
+                price+=(int)keyboard_prices.get(i);
+            } catch (Exception e){
+                hashMap.put("keyboard_title",null);
+                hashMap.put("keyboard_image",null);
+                hashMap.put("keyboard_price",null);
+            }
+
+
             elementList.add(hashMap);
         }
         String[] from = {"computer_title","computer_image","computer_price","mouse_title","mouse_image","mouse_price","keyboard_title","keyboard_image","keyboard_price"};
@@ -182,23 +206,29 @@ public class CartFragment extends Fragment {
         }
 
         orderText.setText(text);
+        orderPrice.setText(price+"zł");
 
 
 
         buy.setOnClickListener(v->{
             SharedPreferences.Editor editor = cart.edit();
             editor.putBoolean("EMPTY",true);
+            Log.v("Tescik",cart.getInt("OrderId",-1)+"");
+            editor.putInt("LastOrder", cart.getInt("OrderId",-1));
+            editor.putInt("OrderId", -1);
             editor.commit();
-            Toast.makeText(getContext(), "Dodano do koszyka", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.buy), Toast.LENGTH_SHORT).show();
+            getActivity().recreate();
         });
 
         reset.setOnClickListener(v->{
             SharedPreferences.Editor editor = cart.edit();
             editor.putBoolean("EMPTY",true);
             editor.commit();
-            dbHelper.deleteDataUserOrders(cart.getInt("OrderId",0)+"");
-            dbHelper.deleteDataUserOrderByOrdersId(cart.getInt("OrderId",0)+"");
-            Toast.makeText(getContext(), "Zresetowano koszyk", Toast.LENGTH_SHORT).show();
+            dbHelper.deleteDataUserOrders(cart.getInt("OrderId",-1)+"");
+            dbHelper.deleteDataUserOrderByOrdersId(cart.getInt("OrderId",-1)+"");
+            Toast.makeText(getContext(), getString(R.string.reset), Toast.LENGTH_SHORT).show();
+            getActivity().recreate();
         });
 
         return rootView;

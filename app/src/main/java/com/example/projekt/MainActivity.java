@@ -187,6 +187,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(gpsIntent);
                 Toast.makeText(this, R.string.locate_shop, Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.aboutMenuItem:
+                Toast.makeText(this, R.string.about, Toast.LENGTH_SHORT).show();
+                break;
             default:
                 return false;
         }
