@@ -53,7 +53,9 @@ public class UserOrdersFragment extends Fragment {
 
     private TextView orderText;
 
-    private HashMap<String,Object> hashMap;
+    private HashMap<String,Object> hashMap1;
+    private HashMap<String,Object> hashMap2;
+    private HashMap<String,Object> hashMap3;
     private List elementList;
 
     @Nullable
@@ -115,14 +117,33 @@ public class UserOrdersFragment extends Fragment {
             computer_titles.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_COMPUTER, ItemReader.ItemEntry.COLUMN_NAME_COMPUTER,""+computer_ids.get(i), BaseColumns._ID));
             computer_images.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_COMPUTER, ItemReader.ItemEntry.COLUMN_NAME_COMPUTER_PHOTO,""+computer_ids.get(i), BaseColumns._ID));
             computer_prices.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_COMPUTER, ItemReader.ItemEntry.COLUMN_NAME_COMPUTER_PRICE,""+computer_ids.get(i), BaseColumns._ID));
-
-            mouse_titles.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_MOUSE, ItemReader.ItemEntry.COLUMN_NAME_MOUSE,""+mouse_ids.get(i), BaseColumns._ID));
-            mouse_images.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_MOUSE, ItemReader.ItemEntry.COLUMN_NAME_MOUSE_PHOTO,""+mouse_ids.get(i), BaseColumns._ID));
-            mouse_prices.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_MOUSE, ItemReader.ItemEntry.COLUMN_NAME_MOUSE_PRICE,""+mouse_ids.get(i), BaseColumns._ID));
-
-            keyboard_titles.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_KEYBOARD, ItemReader.ItemEntry.COLUMN_NAME_KEYBOARD,""+keyboard_ids.get(i), BaseColumns._ID));
-            keyboard_images.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_KEYBOARD, ItemReader.ItemEntry.COLUMN_NAME_KEYBOARD_PHOTO,""+keyboard_ids.get(i), BaseColumns._ID));
-            keyboard_prices.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_KEYBOARD, ItemReader.ItemEntry.COLUMN_NAME_KEYBOARD_PRICE,""+keyboard_ids.get(i), BaseColumns._ID));
+        }
+        for(int i=0;i<mouse_ids.size();i++){
+            if(!mouse_ids.get(i).toString().equals("-1")){
+                mouse_titles.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_MOUSE, ItemReader.ItemEntry.COLUMN_NAME_MOUSE,""+mouse_ids.get(i), BaseColumns._ID));
+                mouse_images.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_MOUSE, ItemReader.ItemEntry.COLUMN_NAME_MOUSE_PHOTO,""+mouse_ids.get(i), BaseColumns._ID));
+                mouse_prices.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_MOUSE, ItemReader.ItemEntry.COLUMN_NAME_MOUSE_PRICE,""+mouse_ids.get(i), BaseColumns._ID));
+            }
+            else{
+                mouse_titles.add(null);
+                mouse_images.add(null);
+                mouse_prices.add(null);
+            }
+        }
+        Log.v("UserOrder",mouse_ids.toString());
+        Log.v("UserOrder",mouse_titles.toString());
+        for(int i=0;i<keyboard_ids.size();i++){
+            if(!keyboard_ids.get(i).toString().equals("-1")){
+                keyboard_titles.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_KEYBOARD, ItemReader.ItemEntry.COLUMN_NAME_KEYBOARD,""+keyboard_ids.get(i), BaseColumns._ID));
+                keyboard_images.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_KEYBOARD, ItemReader.ItemEntry.COLUMN_NAME_KEYBOARD_PHOTO,""+keyboard_ids.get(i), BaseColumns._ID));
+                keyboard_prices.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_KEYBOARD, ItemReader.ItemEntry.COLUMN_NAME_KEYBOARD_PRICE,""+keyboard_ids.get(i), BaseColumns._ID));
+            }
+            else{
+                keyboard_titles.add(null);
+                keyboard_images.add(null);
+                keyboard_prices.add(null);
+            }
+            Log.v("UserOrder","x");
         }
 
         Log.v("TAG",computer_ids.toString() + "\n" + computer_titles.toString() + "\n" + computer_images.toString() +"\n" + computer_prices.toString());
@@ -130,52 +151,40 @@ public class UserOrdersFragment extends Fragment {
         Log.v("TAG",keyboard_ids.toString() + "\n" + keyboard_titles.toString() + "\n" + keyboard_images.toString() +"\n" + keyboard_prices.toString());
 
         for(int i=0;i<computer_titles.size();i++){
-            hashMap = new HashMap<>();
-            hashMap.put("computer_title",computer_titles.get(i));
-            hashMap.put("computer_image",Integer.parseInt(computer_images.get(i).toString()));
-            hashMap.put("computer_price",computer_prices.get(i)+"zł");
+            hashMap1 = new HashMap<>();
+            hashMap1.put("title",computer_titles.get(i));
+            hashMap1.put("image",Integer.parseInt(computer_images.get(i).toString()));
+            hashMap1.put("price",computer_prices.get(i)+"zł");
+            elementList.add(hashMap1);
 
-            try{
-                hashMap.put("mouse_title",mouse_titles.get(i));
-                hashMap.put("mouse_image",Integer.parseInt(mouse_images.get(i).toString()));
-                hashMap.put("mouse_price",mouse_prices.get(i)+"zł");
-            }
-            catch (Exception e){
-                hashMap.put("mouse_title",null);
-                hashMap.put("mouse_image",null);
-                hashMap.put("mouse_price",null);
+            if(mouse_titles.get(i)!=null){
+                hashMap2 = new HashMap<>();
+                hashMap2.put("title",mouse_titles.get(i));
+                hashMap2.put("image",Integer.parseInt(mouse_images.get(i).toString()));
+                hashMap2.put("price",mouse_prices.get(i)+"zł");
+                elementList.add(hashMap2);
             }
 
-            try{
-                hashMap.put("keyboard_title",keyboard_titles.get(i));
-                hashMap.put("keyboard_image",Integer.parseInt(keyboard_images.get(i).toString()));
-                hashMap.put("keyboard_price",keyboard_prices.get(i)+"zł");
-            } catch (Exception e){
-                hashMap.put("keyboard_title",null);
-                hashMap.put("keyboard_image",null);
-                hashMap.put("keyboard_price",null);
+            if(keyboard_titles.get(i)!=null){
+                hashMap3 = new HashMap<>();
+                hashMap3.put("title",keyboard_titles.get(i));
+                hashMap3.put("image",Integer.parseInt(keyboard_images.get(i).toString()));
+                hashMap3.put("price",keyboard_prices.get(i)+"zł");
+                elementList.add(hashMap3);
             }
-
-            elementList.add(hashMap);
         }
-        String[] from = {"computer_title","computer_image","computer_price","mouse_title","mouse_image","mouse_price","keyboard_title","keyboard_image","keyboard_price"};
+        String[] from = {"title","image","price"};
 
         int[] to={
-                R.id.titleListOrderComputer,
-                R.id.imageViewListOrderComputer,
-                R.id.priceListOrderComputer,
-                R.id.titleListOrderMouse,
-                R.id.imageViewListOrderMouse,
-                R.id.priceListOrderMouse,
-                R.id.titleListOrderKeyboard,
-                R.id.imageViewListOrderKeyboard,
-                R.id.priceListOrderKeyboard
+                R.id.titleListItem,
+                R.id.imageViewListItem,
+                R.id.priceListItem,
         };
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(
                 getContext(),
                 elementList,
-                R.layout.list_view_order,
+                R.layout.list_view_item,
                 from,
                 to
         );

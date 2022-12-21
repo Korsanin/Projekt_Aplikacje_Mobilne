@@ -208,6 +208,12 @@ public class UsersOrderFragment extends Fragment {
 
                     long id = db_write.insert(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER,null,orderValues);
 
+                    SharedPreferences.Editor editor = order.edit();
+
+                    editor.putString("KEYBOARD", "-1");
+                    editor.putString("MOUSE", "-1");
+                    editor.apply();
+
                     Toast.makeText(getContext(), getString(R.string.added_to_cart), Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e){

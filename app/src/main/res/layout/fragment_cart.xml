@@ -27,14 +27,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/buy_button"
             android:id="@+id/buy"
             android:backgroundTint="@color/teal_700"
             android:textColor="@color/light_gray"/>
         <Button
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reset_button"
             android:id="@+id/reset"
