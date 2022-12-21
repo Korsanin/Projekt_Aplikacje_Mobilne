@@ -161,7 +161,7 @@ public class UserOrdersFragment extends Fragment {
         String[] from = {"computer_title","computer_image","computer_price","mouse_title","mouse_image","mouse_price","keyboard_title","keyboard_image","keyboard_price"};
 
         int[] to={
-            R.id.titleListOrderComputer,
+                R.id.titleListOrderComputer,
                 R.id.imageViewListOrderComputer,
                 R.id.priceListOrderComputer,
                 R.id.titleListOrderMouse,
@@ -173,12 +173,12 @@ public class UserOrdersFragment extends Fragment {
         };
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(
-            getContext(),
+                getContext(),
                 elementList,
                 R.layout.list_view_order,
                 from,
                 to
-                );
+        );
 
         listView.setAdapter(simpleAdapter);
 

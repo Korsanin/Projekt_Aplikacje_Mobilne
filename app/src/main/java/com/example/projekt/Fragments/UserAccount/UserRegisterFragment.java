@@ -103,8 +103,8 @@ public class UserRegisterFragment extends Fragment {
                     emailInput.setError(resources.getString(R.string.email_taken));
                 }
                 if(!doPasswordMatch){
-                    passwordInput.setText(resources.getString(R.string.passwords_dont_match));
-                    passwordRepeatInput.setText(resources.getString(R.string.passwords_dont_match));
+                    passwordInput.setError(resources.getString(R.string.passwords_dont_match));
+                    passwordRepeatInput.setError(resources.getString(R.string.passwords_dont_match));
                 }
             }
 

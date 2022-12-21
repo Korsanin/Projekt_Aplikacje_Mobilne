@@ -100,12 +100,14 @@ public class UserLoginFragment extends Fragment {
                     startActivity(getActivity().getIntent());
                 }
                 else{
-                    Toast.makeText(getContext(), resources.getString(R.string.failed_to_log_in), Toast.LENGTH_SHORT).show();
+                    emailInput.setError(resources.getString(R.string.failed_to_log_in));
+                    passwordInput.setError(resources.getString(R.string.failed_to_log_in));
                 }
             }
             catch (Exception e){
                 Log.v(TAG,e.getMessage());
-                Toast.makeText(getContext(), resources.getString(R.string.failed_to_log_in), Toast.LENGTH_SHORT).show();
+                emailInput.setError(resources.getString(R.string.failed_to_log_in));
+                passwordInput.setError(resources.getString(R.string.failed_to_log_in));
             }
         });
 

@@ -2,6 +2,7 @@ package com.example.projekt;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -188,7 +189,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(this, R.string.locate_shop, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.aboutMenuItem:
-                Toast.makeText(this, R.string.about, Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                alert.setTitle(R.string.menu_about);
+                alert.setMessage(R.string.about);
+                alert.create().show();
                 break;
             default:
                 return false;
