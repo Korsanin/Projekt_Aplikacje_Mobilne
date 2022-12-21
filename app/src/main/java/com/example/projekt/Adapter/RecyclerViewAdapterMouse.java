@@ -55,7 +55,7 @@ public class RecyclerViewAdapterMouse extends RecyclerView.Adapter<RecyclerViewA
         SharedPreferences sharedPreferences = context.getSharedPreferences("ORDER",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Log.v("UserOrder",holder.getAdapterPosition()+"");
-        editor.putString("MOUSE", "0");
+        editor.putString("MOUSE", "-1");
         editor.commit();
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {

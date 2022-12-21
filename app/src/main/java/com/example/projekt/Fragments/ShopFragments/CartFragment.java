@@ -47,6 +47,7 @@ public class CartFragment extends Fragment {
     private List computer_titles;
     private List computer_images;
     private List computer_prices;
+    private List computer_amounts;
 
     private List mouse_ids;
     private List mouse_titles;
@@ -101,6 +102,7 @@ public class CartFragment extends Fragment {
         computer_ids = new ArrayList<>();
         mouse_ids = new ArrayList();
         keyboard_ids = new ArrayList();
+        computer_amounts = new ArrayList();
 
         computer_titles = new ArrayList<>();
         computer_prices = new ArrayList<>();
@@ -119,6 +121,7 @@ public class CartFragment extends Fragment {
         computer_ids.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER, ItemReader.ItemEntry.COLUMN_NAME_COMPUTER_ID,id+"", ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_ID));
         mouse_ids.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER, ItemReader.ItemEntry.COLUMN_NAME_MOUSE_ID,id+"", ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_ID));
         keyboard_ids.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER, ItemReader.ItemEntry.COLUMN_NAME_KEYBOARD_ID,id+"", ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_ID));
+        computer_amounts.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER, ItemReader.ItemEntry.COLUMN_NAME_AMOUNT,id+"", ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_ID));
 //        Log.v("TAG",computer_ids.toString()+"\n"+mouse_ids.toString()+"\n"+keyboard_ids.toString()+"\n");
 
         for(int i=0;i<computer_ids.size();i++){
@@ -163,8 +166,8 @@ public class CartFragment extends Fragment {
             hashMap1 = new HashMap<>();
             hashMap1.put("title",computer_titles.get(i));
             hashMap1.put("image",Integer.parseInt(computer_images.get(i).toString()));
-            hashMap1.put("price",computer_prices.get(i)+"zł");
-            price+=(int)computer_prices.get(i);
+            hashMap1.put("price",computer_amounts.get(i)+"*"+computer_prices.get(i)+"zł");
+            price+=(int)computer_prices.get(i)*(int)computer_amounts.get(i);
             elementList.add(hashMap1);
 
             if(mouse_titles.get(i)!=null){

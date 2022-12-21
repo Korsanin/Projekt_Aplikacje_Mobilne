@@ -196,6 +196,8 @@ public class UsersOrderFragment extends Fragment {
                     int orders_id = order.getInt("OrderId",0);
                     int amount = seekBar.getProgress();
 
+                    Log.v(TAG,amount+"");
+
                     Log.v(TAG,mouse_id+"\n " + keyboard_id+"\n " + computer_id+"\n "+ orders_id+"\n "+amount);
 
                     ContentValues orderValues = new ContentValues();

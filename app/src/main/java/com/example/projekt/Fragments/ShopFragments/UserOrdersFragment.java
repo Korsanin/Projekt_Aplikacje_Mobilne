@@ -40,6 +40,7 @@ public class UserOrdersFragment extends Fragment {
     private List computer_titles;
     private List computer_images;
     private List computer_prices;
+    private List computer_amounts;
 
     private List mouse_ids;
     private List mouse_titles;
@@ -91,6 +92,7 @@ public class UserOrdersFragment extends Fragment {
         computer_ids = new ArrayList<>();
         mouse_ids = new ArrayList();
         keyboard_ids = new ArrayList();
+        computer_amounts = new ArrayList<>();
 
         computer_titles = new ArrayList<>();
         computer_prices = new ArrayList<>();
@@ -106,7 +108,10 @@ public class UserOrdersFragment extends Fragment {
 
         elementList = new ArrayList<>();
 
+
+
         for(Long i : orders){
+            computer_amounts.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER, ItemReader.ItemEntry.COLUMN_NAME_AMOUNT,i+"", ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_ID));
             computer_ids.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER, ItemReader.ItemEntry.COLUMN_NAME_COMPUTER_ID,i+"", ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_ID));
             mouse_ids.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER, ItemReader.ItemEntry.COLUMN_NAME_MOUSE_ID,i+"", ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_ID));
             keyboard_ids.addAll(dbHelper.readData(ItemReader.ItemEntry.TABLE_NAME_USER_ORDER, ItemReader.ItemEntry.COLUMN_NAME_KEYBOARD_ID,i+"", ItemReader.ItemEntry.COLUMN_NAME_USER_ORDERS_ID));
@@ -154,7 +159,7 @@ public class UserOrdersFragment extends Fragment {
             hashMap1 = new HashMap<>();
             hashMap1.put("title",computer_titles.get(i));
             hashMap1.put("image",Integer.parseInt(computer_images.get(i).toString()));
-            hashMap1.put("price",computer_prices.get(i)+"zł");
+            hashMap1.put("price",computer_amounts.get(i)+"*"+computer_prices.get(i)+"zł");
             elementList.add(hashMap1);
 
             if(mouse_titles.get(i)!=null){
